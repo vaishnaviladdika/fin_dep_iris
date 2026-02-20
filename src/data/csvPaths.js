@@ -1,4 +1,4 @@
-// CSV files in public/ – use exact filenames (spaces encoded in URL)
+// CSV files in public/ – must match exact filenames including spaces
 export const SEPTEMBER_CSV_DAYS = [
   { day: 5, file: 'september5.csv' },
   { day: 6, file: 'september6.csv' },
@@ -10,5 +10,6 @@ export const SEPTEMBER_CSV_DAYS = [
 ];
 
 export function getCsvUrl(filename) {
-  return `/${encodeURI(filename)}`;
+  // encode spaces properly for production (Vercel/Linux)
+  return `/${encodeURIComponent(filename)}`;
 }
