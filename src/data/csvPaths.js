@@ -5,7 +5,7 @@ export const SEPTEMBER_CSV_DAYS = [
   { day: 8, file: 'september 8.csv' },
   { day: 9, file: 'september 9.csv' },
   { day: 10, file: 'september 10.csv.csv' }, // FIXED
-  { day: 11, file: 'september11.csv' },
+  { day: 11, file: 'september11.csv.csv' },
 ];
 
 export function getCsvUrl(filename) {
