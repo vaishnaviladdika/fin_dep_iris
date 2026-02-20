@@ -45,17 +45,14 @@ export default function App() {
   const handleDownloadReport = async (type) => {
     const tabLabel = TABS.find((t) => t.id === activeTab)?.label ?? activeTab;
 
-    // Daily / Weekly / Monthly buttons
     if (type === 'daily' || type === 'weekly' || type === 'monthly') {
       setReportType(type);
       const label = type.charAt(0).toUpperCase() + type.slice(1);
       const filename = `${tabLabel.replace(/\s+/g, '-').toLowerCase()}-${type}-report.pdf`;
-      // Small delay so reportType state updates and page re-renders before capture
       setTimeout(() => downloadPageAsPDF(`${label} – ${tabLabel}`, filename), 300);
       return;
     }
 
-    // Download button (captures current active tab as-is)
     const filename = `${tabLabel.replace(/\s+/g, '-').toLowerCase()}-report.pdf`;
     downloadPageAsPDF(tabLabel, filename);
   };
@@ -93,31 +90,29 @@ export default function App() {
             ))}
           </nav>
 
-          {/* This ref wraps all page content — this is what gets exported to PDF */}
           <main ref={pageRef}>
             <div
               id="panel-overview"
               role="tabpanel"
               aria-labelledby="tab-overview"
-              hidden={activeTab !== 'overview'}
               className={`page ${activeTab === 'overview' ? 'active' : ''}`}
             >
               {activeTab === 'overview' && <OverviewPage reportType={reportType} />}
             </div>
+
             <div
               id="panel-intersection"
               role="tabpanel"
               aria-labelledby="tab-intersection"
-              hidden={activeTab !== 'intersection'}
               className={`page ${activeTab === 'intersection' ? 'active' : ''}`}
             >
               {activeTab === 'intersection' && <IntersectionPage />}
             </div>
+
             <div
               id="panel-events"
               role="tabpanel"
               aria-labelledby="tab-events"
-              hidden={activeTab !== 'events'}
               className={`page ${activeTab === 'events' ? 'active' : ''}`}
             >
               {activeTab === 'events' && <EventsPage />}
