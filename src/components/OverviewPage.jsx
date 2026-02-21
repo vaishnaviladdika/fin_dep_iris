@@ -22,8 +22,19 @@ export default function OverviewPage({ reportType }) {
         reportType === 'monthly' ? 'Monthly (September)' :
           'Sept 5–11';
 
+  const pluralizeStats = (stats) => {
+    if (!stats) return stats;
+    return stats
+      .replace(/\bcar\b/g, 'Cars')
+      .replace(/\btruck\b/g, 'Trucks')
+      .replace(/\bbus\b/g, 'Buses')
+      .replace(/\bCar\b/g, 'Cars')
+      .replace(/\bTruck\b/g, 'Trucks')
+      .replace(/\bBus\b/g, 'Buses');
+  };
+
   const handleIntersectionClick = (item) => {
-    toast.info(`#${item.rank} ${item.name}`, { description: item.stats });
+    toast.info(`#${item.rank} ${item.name}`, { description: pluralizeStats(item.stats) });
   };
 
   return (
@@ -61,7 +72,7 @@ export default function OverviewPage({ reportType }) {
               <span className="intersection-rank">{item.rank}</span>
               <div className="intersection-info">
                 <div className="intersection-name">{item.name}</div>
-                <div className="intersection-stats">{item.stats}</div>
+                <div className="intersection-stats">{pluralizeStats(item.stats)}</div>
               </div>
             </button>
           ))}
