@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from 'react-leaflet';
 import { toast } from 'sonner';
-import { Calendar, TrendingUp, TrendingDown } from 'lucide-react';
+
 import { SEPTEMBER_CSV_DAYS, getCsvUrl } from '../data/csvPaths';
 import { fetchAndParseCsv } from '../data/parseTrafficCsv';
 
@@ -174,20 +174,7 @@ export default function SpeedHeatmap({ onReport }) {
         </MapContainer>
       </div>
 
-      <div className="report-buttons report-buttons--center">
-        <button type="button" className="report-btn" onClick={() => handleReport('daily')}>
-          <Calendar className="btn-icon" />
-          Generate Daily Report
-        </button>
-        <button type="button" className="report-btn" onClick={() => handleReport('weekly')}>
-          <TrendingUp className="btn-icon" />
-          Generate Weekly Report
-        </button>
-        <button type="button" className="report-btn" onClick={() => handleReport('monthly')}>
-          <TrendingDown className="btn-icon" />
-          Generate Monthly Report
-        </button>
-      </div>
+
     </div>
   );
 }
