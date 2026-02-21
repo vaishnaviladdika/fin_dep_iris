@@ -38,12 +38,12 @@ export default function OverviewPage({ reportType }) {
         <StatCard
           title="Violations"
           value={loading ? '…' : error ? '—' : reportData?.overLimit?.toLocaleString() ?? '—'}
-          change="Speed ≥50 miles/hour"
+          change="Speed ≥50 mph"
         />
         <StatCard
           title="Average Speed"
           value={loading ? '…' : error ? '—' : reportData?.avgSpeedMph ?? '—'}
-          change="miles/hour"
+          change="mph"
         />
       </div>
 
