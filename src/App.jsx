@@ -19,16 +19,20 @@ export default function App() {
   const [reportType, setReportType] = useState('weekly');
   const pageRef = useRef(null);
 
-  const downloadPageAsPDF = async (label, filename) => {
+  const downloadPageAsPDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
     const element = pageRef.current;
     if (!element) return;
+
+    const tabLabel = TABS.find((t) => t.id === activeTab)?.label ?? activeTab;
+    const label = `${reportType.charAt(0).toUpperCase() + reportType.slice(1)} – ${tabLabel}`;
+    const filename = `${tabLabel.replace(/\s+/g, '-').toLowerCase()}-${reportType}-report.pdf`;
 
     const id = toast.loading(`Generating ${label} PDF…`);
 
     const opt = {
       margin: 0.5,
-      filename: filename,
+      filename,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
@@ -42,19 +46,16 @@ export default function App() {
     }
   };
 
-  const handleDownloadReport = async (type) => {
-    const tabLabel = TABS.find((t) => t.id === activeTab)?.label ?? activeTab;
+  // Only sets the report type — does NOT trigger download
+  const handleSelectReportType = (type) => {
+    setReportType(type);
+    const label = type.charAt(0).toUpperCase() + type.slice(1);
+    toast.info(`${label} report selected`, { description: 'Click Download to export', duration: 2000 });
+  };
 
-    if (type === 'daily' || type === 'weekly' || type === 'monthly') {
-      setReportType(type);
-      const label = type.charAt(0).toUpperCase() + type.slice(1);
-      const filename = `${tabLabel.replace(/\s+/g, '-').toLowerCase()}-${type}-report.pdf`;
-      setTimeout(() => downloadPageAsPDF(`${label} – ${tabLabel}`, filename), 300);
-      return;
-    }
-
-    const filename = `${tabLabel.replace(/\s+/g, '-').toLowerCase()}-report.pdf`;
-    downloadPageAsPDF(tabLabel, filename);
+  // Only called when Download button is clicked
+  const handleDownload = () => {
+    downloadPageAsPDF();
   };
 
   const handleTabChange = (tabId) => {
@@ -69,7 +70,9 @@ export default function App() {
         <div className="container">
           <Header
             activeTab={activeTab}
-            onDownloadReport={handleDownloadReport}
+            reportType={reportType}
+            onSelectReportType={handleSelectReportType}
+            onDownload={handleDownload}
           />
 
           <nav className="tabs" role="tablist" aria-label="Dashboard sections">
