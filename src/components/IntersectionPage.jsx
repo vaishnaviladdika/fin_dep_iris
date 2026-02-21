@@ -26,7 +26,7 @@ export default function IntersectionPage() {
   const speedingTotal = weekData?.overLimit ?? 0;
 
   const violationsFromCsv = [
-    { type: 'Speeding ≥80 km/h', value: speedingTotal, className: 'speeding' },
+    { type: 'Speeding ≥80 mph', value: speedingTotal, className: 'speeding' },
   ];
 
   return (
@@ -115,7 +115,7 @@ export default function IntersectionPage() {
                 stroke="#ef4444"
                 fill="#ef4444"
                 fillOpacity={0.3}
-                name="Speeding ≥80 km/h"
+                name="Speeding ≥80 mph"
               />
             </AreaChart>
           </ResponsiveContainer>
