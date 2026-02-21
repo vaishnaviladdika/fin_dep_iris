@@ -49,7 +49,7 @@ export default function EventsPage() {
       <div className="clips-section">
         <h2><Video className="section-title-icon" /> High-Speed Events (from CSV)</h2>
         <p className="clips-description">
-          Speeding events (≥80 km/h) from September 5–9 CSV. No video clips in dataset.
+          Speeding events (≥50 mph) from September 5–9 CSV. No video clips in dataset.
         </p>
       </div>
 
